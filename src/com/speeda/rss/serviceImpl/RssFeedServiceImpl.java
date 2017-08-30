@@ -200,33 +200,34 @@ public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedServic
      * @throws XMLStreamException
      */
     protected void createRssNodes(Feed rssfeed, XMLEvent end, XMLEventWriter eventWriter) throws XMLStreamException {
-        StartElement rssStart = eventFactory.createStartElement("", "", "rss");
+        StartElement rssStart = eventFactory.createStartElement("", "", FeedEnum.RSS.toString().toLowerCase());
         eventWriter.add(rssStart);
-        eventWriter.add(eventFactory.createAttribute("version", "2.0"));
+        eventWriter.add(eventFactory.createAttribute("version", RSS_VERSION));
         eventWriter.add(end);
 
-        eventWriter.add(eventFactory.createStartElement("", "", "channel"));
+        eventWriter.add(eventFactory.createStartElement("", "", FeedEnum.CHANNEL.toString().toLowerCase()));
         eventWriter.add(end);
 
         createFeedInfo(rssfeed, eventWriter);
 
         for (FeedMessage entry : rssfeed.getFeedMessages()) {
-            eventWriter.add(eventFactory.createStartElement("", "", "item"));
+            eventWriter.add(eventFactory.createStartElement("", "", FeedEnum.ITEM.toString().toLowerCase())); // move logic to method or utility class
             eventWriter.add(end);
-            createNode(eventWriter, "title", entry.getTitle());
-            createNode(eventWriter, "description", entry.getDescription());
-            createNode(eventWriter, "link", entry.getLink());
-            createNode(eventWriter, "author", entry.getAuthor());
-            createNode(eventWriter, "guid", entry.getGuid());
+            createNode(eventWriter, FeedEnum.TITLE.toString().toLowerCase(), entry.getTitle());
+            createNode(eventWriter, FeedEnum.LINK.toString().toLowerCase(), entry.getLink());
+            createNode(eventWriter, FeedEnum.DESCRIPTION.toString().toLowerCase(), entry.getDescription());
+            createNode(eventWriter, FeedEnum.PUBDATE.toString().toLowerCase(), entry.getPubDate());
+            createNode(eventWriter, FeedEnum.GUID.toString().toLowerCase(), entry.getGuid());
+            createNode(eventWriter, FeedEnum.ENCLOSURE.toString().toLowerCase(), entry.getEnclosure());
             eventWriter.add(end);
-            eventWriter.add(eventFactory.createEndElement("", "", "item"));
+            eventWriter.add(eventFactory.createEndElement("", "", FeedEnum.ITEM.toString().toLowerCase()));
             eventWriter.add(end);
         }
 
         eventWriter.add(end);
-        eventWriter.add(eventFactory.createEndElement("", "", "channel"));
+        eventWriter.add(eventFactory.createEndElement("", "", FeedEnum.CHANNEL.toString().toLowerCase()));
         eventWriter.add(end);
-        eventWriter.add(eventFactory.createEndElement("", "", "rss"));
+        eventWriter.add(eventFactory.createEndElement("", "", FeedEnum.CHANNEL.toString().toLowerCase()));
         eventWriter.add(end);
         eventWriter.add(eventFactory.createEndDocument());
     }
@@ -243,5 +244,8 @@ public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedServic
         createNode(eventWriter, FeedEnum.TITLE.toString().toLowerCase(), rssfeed.getTitle());
         createNode(eventWriter, FeedEnum.LINK.toString().toLowerCase(), rssfeed.getLink());
         createNode(eventWriter, FeedEnum.DESCRIPTION.toString().toLowerCase(), rssfeed.getDescription());
+        createNode(eventWriter, FeedEnum.LASTBUILDDATE.toString().toLowerCase(), rssfeed.getLastBuildDate());
+        createNode(eventWriter, FeedEnum.DOCS.toString().toLowerCase(), rssfeed.getDocs());
+        createNode(eventWriter, FeedEnum.GENERATOR.toString().toLowerCase(), rssfeed.getGenerator());
     }
 }

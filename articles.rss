@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+	<title>test rss feed creation</title>
+	<link>http://tech.uzabase.com</link>
+	<description>Test description for the feed</description>
+	<lastbuilddate>Wed, 30 Aug 2017 16:04:04 CST</lastbuilddate>
+	<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+	<generator>Kishore Ravi</generator>
+<item>
+	<title>Feed Message: 0</title>
+	<link>Test Link: 0</link>
+	<description>Test Description: 0</description>
+	<guid>Test guid: 0</guid>
+	<enclosure>Test Enclosure: 0</enclosure>
+
+</item>
+<item>
+	<title>Feed Message: 1</title>
+	<link>Test Link: 1</link>
+	<description>Test Description: 1</description>
+	<guid>Test guid: 1</guid>
+	<enclosure>Test Enclosure: 1</enclosure>
+
+</item>
+<item>
+	<title>Feed Message: 2</title>
+	<link>Test Link: 2</link>
+	<description>Test Description: 2</description>
+	<guid>Test guid: 2</guid>
+	<enclosure>Test Enclosure: 2</enclosure>
+
+</item>
+<item>
+	<title>Feed Message: 3</title>
+	<link>Test Link: 3</link>
+	<description>Test Description: 3</description>
+	<guid>Test guid: 3</guid>
+	<enclosure>Test Enclosure: 3</enclosure>
+
+</item>
+<item>
+	<title>Feed Message: 4</title>
+	<link>Test Link: 4</link>
+	<description>Test Description: 4</description>
+	<guid>Test guid: 4</guid>
+	<enclosure>Test Enclosure: 4</enclosure>
+
+</item>
+
+</channel>
+</rss>

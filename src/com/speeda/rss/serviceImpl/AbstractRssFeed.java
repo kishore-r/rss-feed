@@ -37,6 +37,7 @@ public abstract class AbstractRssFeed {
     protected XMLEvent tab;
     protected EndElement eElement;
     private static final String[] EXCLUDE_STRING_LIST = { "NewsPicks" };
+    protected static String RSS_VERSION = "2.0";
 
     /**
      * COMMENT - Enter concise description of the method's purpose. 
@@ -99,7 +100,7 @@ public abstract class AbstractRssFeed {
      * @param feedMessage
      */
     public void displayFeedMessage(FeedMessage feedMessage) {
-       
+
         RssFeedUtil.printToStandardOut("--------------------------- " + feedMessage.getFeedNo() + " . FEED MESSAGE  -----------------------------------------");
         RssFeedUtil.printToStandardOut("\n TITLE: " + feedMessage.getTitle() + "\n");
         RssFeedUtil.printToStandardOut("\n LINK: " + feedMessage.getLink() + "\n");

@@ -1,8 +1,7 @@
+import static org.junit.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import org.junit.Test;
 
@@ -37,36 +36,44 @@ public class RessFeedServiceImplTest {
         for (FeedMessage message : feed.getFeedMessages()) {
             ((AbstractRssFeed)rssFeedServiceImpl).displayFeedMessage(message);
         }
-
+        assertTrue(feed.getGenerator().equals("Hatena::Blog"));
+        assertTrue(feed.getTitle().equals("UZABASE Tech Blog"));
+        assertTrue(feed.getLink().equals("http://tech.uzabase.com/"));
+        assertTrue(feed.getFeedMessages().get(0).getTitle().contains("Docker Container"));
     }
 
+    /**
+     * RSS named "test-rss.rss" should be created in the root folder. 
+     *
+     */
+    @Test
     public void testWriteFeed() {
-        RssFeedServiceImpl rssFeedServiceImpl = new RssFeedServiceImpl();
-        String copyright = "Copyright hold by Lars Vogel";
-        String title = "Eclipse and Java Information";
-        String description = "Eclipse and Java Information";
-        String language = "en";
-        String link = "http://www.vogella.com";
-        Calendar cal = new GregorianCalendar();
-        Date creationDate = cal.getTime();
-        SimpleDateFormat date_format = new SimpleDateFormat("EEE', 'dd' 'MMM' 'yyyy' 'HH:mm:ss' 'Z", Locale.US);
-        String pubdate = date_format.format(creationDate);
-        Feed rssFeeder = new Feed(title, link, description);
-
-        // now add one example entry
-        FeedMessage writeFeed = new FeedMessage();
-        writeFeed.setTitle("RSSFeed");
-        writeFeed.setDescription("Test Description");
-        writeFeed.setAuthor("nonsense@somewhere.de (Lars Vogel)");
-        writeFeed.setGuid("http://www.vogella.com/tutorials/RSSFeed/article.html");
-        writeFeed.setLink("http://www.vogella.com/tutorials/RSSFeed/article.html");
-        rssFeeder.getFeedMessages().add(writeFeed);
-
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+        Feed feed = new Feed();
+        feed.setTitle("test rss feed creation");
+        feed.setLink("http://tech.uzabase.com");
+        feed.setDescription("Test description for the feed");
+        format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+        feed.setLastBuildDate(format.format(curDate));
+        feed.setDocs("http://blogs.law.harvard.edu/tech/rss");
+        feed.setGenerator("Kishore Ravi");
+        for (int i = 0; i < 5; i++) {
+            curDate = new Date();
+            FeedMessage feedMessage = new FeedMessage();
+            feedMessage.setTitle("Feed Message: " + i);
+            feedMessage.setLink("Test Link: " + i);
+            feedMessage.setDescription("Test Description: " + i);
+            feedMessage.setPubDate(format.format(curDate));
+            feedMessage.setGuid("Test guid: " + i);
+            feedMessage.setEnclosure("Test Enclosure: " + i);
+            feed.getFeedMessages().add(feedMessage);
+        }
         try {
-            rssFeedServiceImpl.writeFeed("articles.rss", rssFeeder);
+            RssFeedService rssFeedServiceImpl = new RssFeedServiceImpl();
+            rssFeedServiceImpl.writeFeed("test-rss.rss", feed);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
