@@ -8,4 +8,4 @@
 
 * Run the unit tests under "RessFeedServiceImplTest"  to test the Read and Wrtite functionalities 
 
-* RssFeedUtil provides some of the utility Required methods for Reading  and crreating a feed. 
+* RssFeedUtil provides some of the utility methods required for Reading  and crreating a feed. 
