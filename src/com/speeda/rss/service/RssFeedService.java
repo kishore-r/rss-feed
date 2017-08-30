@@ -28,7 +28,7 @@ public interface RssFeedService {
     Feed readFeed(String url);
 
     /**
-     * Creates a RSS Feed based on the supplied name using the provided Feed. 
+     * Method is incomplete, need more simplification to make it concrete method.
      *
      * @param feedName String
      * @param rssfeed Feed

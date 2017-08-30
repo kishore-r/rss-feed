@@ -26,7 +26,7 @@ import javax.xml.stream.events.XMLEvent;
 import com.speeda.rss.model.FeedEnum;
 
 /**
- * COMMENT - Add description of this class or interface here. 
+ * Utility class for Rss Feed  related operations. 
  * 
  */
 public final class RssFeedUtil {
@@ -42,8 +42,9 @@ public final class RssFeedUtil {
     private static final String UTF_8_ENCODING = "UTF-8";
 
     /**
-     * COMMENT - Enter concise description of the method's purpose. 
-     * 
+     * Provides character data between nodes . 
+     *    <guid isPermalink="false">hatenablog://entry/8599973812279548363</guid>
+     *    returns hatenablog://entry/8599973812279548363 for upove nodes
      *
      * @param event
      * @param eventReader
@@ -58,13 +59,12 @@ public final class RssFeedUtil {
 
             }
             result = event.asCharacters().getData();
-            RssFeedUtil.printToStandardOut(result);
         }
         return result;
     }
 
     /**
-     * COMMENT - Enter concise description of the method's purpose. 
+     * provides data between description nodes . 
      * 
      *
      * @param event
@@ -91,7 +91,7 @@ public final class RssFeedUtil {
     }
 
     /**
-     * COMMENT - Enter concise description of the method's purpose. 
+     * returns an Input Stream for the provided URL. 
      * 
      *
      * @param url
@@ -106,7 +106,7 @@ public final class RssFeedUtil {
     }
 
     /**
-     * COMMENT - Enter concise description of the method's purpose. 
+     * Alternative static method for System.out.println. 
      * 
      * 
      * @param message

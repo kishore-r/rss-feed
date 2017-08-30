@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import com.speeda.rss.model.Feed;
 import com.speeda.rss.model.FeedMessage;
+import com.speeda.rss.service.RssFeedService;
+import com.speeda.rss.serviceImpl.AbstractRssFeed;
 import com.speeda.rss.serviceImpl.RssFeedServiceImpl;
 import com.speeda.rss.util.RssFeedUtil;
 
@@ -29,11 +31,11 @@ public class RessFeedServiceImplTest {
 
     @Test
     public void testReadFeed() {
-        RssFeedServiceImpl rssFeedServiceImpl = new RssFeedServiceImpl();
+        RssFeedService rssFeedServiceImpl = new RssFeedServiceImpl();
         Feed feed = rssFeedServiceImpl.readFeed(RssFeedUtil.READ_URL);
-        rssFeedServiceImpl.displayFeedDetails(feed);
+        ((AbstractRssFeed)rssFeedServiceImpl).displayFeedDetails(feed);
         for (FeedMessage message : feed.getFeedMessages()) {
-            rssFeedServiceImpl.displayFeedMessage(message);
+            ((AbstractRssFeed)rssFeedServiceImpl).displayFeedMessage(message);
         }
 
     }
@@ -49,7 +51,7 @@ public class RessFeedServiceImplTest {
         Date creationDate = cal.getTime();
         SimpleDateFormat date_format = new SimpleDateFormat("EEE', 'dd' 'MMM' 'yyyy' 'HH:mm:ss' 'Z", Locale.US);
         String pubdate = date_format.format(creationDate);
-        Feed rssFeeder = new Feed(title, link, description, language, copyright, pubdate);
+        Feed rssFeeder = new Feed(title, link, description);
 
         // now add one example entry
         FeedMessage writeFeed = new FeedMessage();

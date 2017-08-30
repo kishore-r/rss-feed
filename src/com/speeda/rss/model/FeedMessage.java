@@ -16,44 +16,12 @@ package com.speeda.rss.model;
  * . 
  * 
  */
-public class FeedMessage {
-    private String title;
-    private String description;
-    private String link;
+public class FeedMessage extends AbstractFeedModel {
     private String author;
     private String guid;
     private int feedNo;
-
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @return Returns the title.
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @return Returns the description.
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @return Returns the link.
-     */
-    public String getLink() {
-        return link;
-    }
+    private String pubDate;
+    private String enclosure;
 
     /**
      * COMMENT - Add concise description of this setter method.
@@ -73,36 +41,6 @@ public class FeedMessage {
      */
     public String getGuid() {
         return guid;
-    }
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @param title The title to set.
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @param description The description to set.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * COMMENT - Add concise description of this setter method.
-     *           Description should go beyond the method name.
-     * 
-     * @param link The link to set.
-     */
-    public void setLink(String link) {
-        this.link = link;
     }
 
     /**
@@ -143,6 +81,46 @@ public class FeedMessage {
      */
     public void setFeedNo(int feedNo) {
         this.feedNo = feedNo;
+    }
+
+    /**
+     * COMMENT - Add concise description of this setter method.
+     *           Description should go beyond the method name.
+     * 
+     * @return Returns the pubDate.
+     */
+    public String getPubDate() {
+        return pubDate;
+    }
+
+    /**
+     * COMMENT - Add concise description of this setter method.
+     *           Description should go beyond the method name.
+     * 
+     * @param pubDate The pubDate to set.
+     */
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    /**
+     * COMMENT - Add concise description of this setter method.
+     *           Description should go beyond the method name.
+     * 
+     * @return Returns the enclosure.
+     */
+    public String getEnclosure() {
+        return enclosure;
+    }
+
+    /**
+     * COMMENT - Add concise description of this setter method.
+     *           Description should go beyond the method name.
+     * 
+     * @param enclosure The enclosure to set.
+     */
+    public void setEnclosure(String enclosure) {
+        this.enclosure = enclosure;
     }
 
 }

@@ -87,7 +87,9 @@ public abstract class AbstractRssFeed {
     public void displayFeedDetails(Feed feed) {
         RssFeedUtil.printToStandardOut("---------------------------- FEED INFORMATION -----------------------------------------------------\n");
 
-        RssFeedUtil.printToStandardOut("Feed [copyright= " + feed.getCopyright() + ",  language=" + feed.getLanguage() + ", link=" + feed.getLink() + ", pubDate=" + feed.getPubDate() + ", title=" + feed.getTitle() + "]");
+        RssFeedUtil.printToStandardOut("\n TITLE : " + feed.getTitle() + " \n LINK : " + feed.getLink() + "\n DESCRIPTION : " + feed.getDescription() + "\n LASTBUILDDATE : " + feed.getLastBuildDate() + "\n DOCS : " + feed.getDocs()
+            + "\n GENERATOR : " + feed.getGenerator() + "  \n");
+        RssFeedUtil.printToStandardOut("-----------------------------------------------------------------------------------------------------");
     }
 
     /**
@@ -97,8 +99,14 @@ public abstract class AbstractRssFeed {
      * @param feedMessage
      */
     public void displayFeedMessage(FeedMessage feedMessage) {
-        RssFeedUtil.printToStandardOut("--------------------------- " + feedMessage.getFeedNo() + " . FEED MESSAGE : DESCRIPTION -----------------------------------------");
-        RssFeedUtil.printToStandardOut("\n" + getFilteredDescription(feedMessage.getDescription()) + "\n");
+       
+        RssFeedUtil.printToStandardOut("--------------------------- " + feedMessage.getFeedNo() + " . FEED MESSAGE  -----------------------------------------");
+        RssFeedUtil.printToStandardOut("\n TITLE: " + feedMessage.getTitle() + "\n");
+        RssFeedUtil.printToStandardOut("\n LINK: " + feedMessage.getLink() + "\n");
+        RssFeedUtil.printToStandardOut("\n DESCRIPTION: " + getFilteredDescription(feedMessage.getDescription()) + "\n");
+        RssFeedUtil.printToStandardOut("\n PUBDATE: " + feedMessage.getPubDate() + "\n");
+        RssFeedUtil.printToStandardOut("\n GUID: " + feedMessage.getGuid() + "\n");
+        RssFeedUtil.printToStandardOut("\n ENCLOSURE: " + feedMessage.getEnclosure() + "\n");
         RssFeedUtil.printToStandardOut("-----------------------------------------------------------------------------------------------------");
     }
 }

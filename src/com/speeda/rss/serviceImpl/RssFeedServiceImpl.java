@@ -38,11 +38,16 @@ import com.speeda.rss.util.RssFeedUtil;
  * 
  */
 public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedService {
+
     protected XMLInputFactory inputFactory;
     protected InputStream in;
     protected XMLEventReader eventReader;
     protected XMLOutputFactory outputFactory;
     protected XMLEventWriter eventWriter;
+
+    @SuppressWarnings("unused")
+    private boolean isChannelFetched = false;
+    private boolean isUnderItem = false;
 
     @Override
     public Feed readFeed(String url) {
@@ -103,29 +108,51 @@ public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedServic
     protected void readRssNodes(Feed feed, FeedMessage feedMessage, XMLEvent event, FeedEnum feedEnum) throws XMLStreamException {
         switch (feedEnum) {
             case ITEM:
-                // header 
+                isUnderItem = true;
                 event = eventReader.nextEvent();
                 break;
             case TITLE:
-                feedMessage.setTitle(RssFeedUtil.getCharacterData(event, eventReader));
+                if (isUnderItem) {
+                    feedMessage.setTitle(RssFeedUtil.getCharacterData(event, eventReader));
+                } else {
+                    feed.setTitle(RssFeedUtil.getCharacterData(event, eventReader));
+                }
                 break;
             case DESCRIPTION:
-                feedMessage.setDescription(RssFeedUtil.getDescriptionData(event, eventReader));
+                if (isUnderItem) {
+                    feedMessage.setDescription(RssFeedUtil.getDescriptionData(event, eventReader));
+                } else {
+                    feed.setDescription(RssFeedUtil.getCharacterData(event, eventReader));
+                }
+
                 break;
             case LINK:
-                feedMessage.setLink(RssFeedUtil.getCharacterData(event, eventReader));
+                if (isUnderItem) {
+                    feedMessage.setLink(RssFeedUtil.getCharacterData(event, eventReader));
+                } else {
+                    feed.setLink(RssFeedUtil.getCharacterData(event, eventReader));
+                }
+                break;
+            case PUBDATE:
+                feedMessage.setPubDate(RssFeedUtil.getCharacterData(event, eventReader));
                 break;
             case GUID:
                 feedMessage.setGuid(RssFeedUtil.getCharacterData(event, eventReader));
                 break;
-            case LANGUAGE:
-                feed.setLanguage(RssFeedUtil.getCharacterData(event, eventReader));
+            case ENCLOSURE:
+                feedMessage.setEnclosure(RssFeedUtil.getCharacterData(event, eventReader));
                 break;
-            case AUTHOR:
-                feedMessage.setAuthor(RssFeedUtil.getCharacterData(event, eventReader));
+            case LASTBUILDDATE:
+                feed.setLastBuildDate(RssFeedUtil.getCharacterData(event, eventReader));
                 break;
-            case COPYRIGHT:
-                feed.setCopyright(RssFeedUtil.getCharacterData(event, eventReader));
+            case DOCS:
+                feed.setDocs(RssFeedUtil.getCharacterData(event, eventReader));
+                break;
+            case CHANNEL:
+                isChannelFetched = true;
+                break;
+            case GENERATOR:
+                feed.setGenerator(RssFeedUtil.getCharacterData(event, eventReader));
                 break;
             default:
                 break;
@@ -165,6 +192,7 @@ public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedServic
 
     /**
      * created XML nodes for RSS feed and RessFedd messages . 
+     * Method is incomplete, need more simplification to make it concrete method.
      * 
      * @param  eventWriter XMLEventWriter
      * @param rssfeed Feed
@@ -215,8 +243,5 @@ public class RssFeedServiceImpl extends AbstractRssFeed implements RssFeedServic
         createNode(eventWriter, FeedEnum.TITLE.toString().toLowerCase(), rssfeed.getTitle());
         createNode(eventWriter, FeedEnum.LINK.toString().toLowerCase(), rssfeed.getLink());
         createNode(eventWriter, FeedEnum.DESCRIPTION.toString().toLowerCase(), rssfeed.getDescription());
-        createNode(eventWriter, FeedEnum.LANGUAGE.toString().toLowerCase(), rssfeed.getLanguage());
-        createNode(eventWriter, FeedEnum.COPYRIGHT.toString().toLowerCase(), rssfeed.getCopyright());
-
     }
 }
